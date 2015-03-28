@@ -22,57 +22,51 @@ public class DAO {
 
     }
 
-    //Global variable for login status
-    private boolean isLoginGood = false;
-    private Connection conn;
-    public ArrayList<Song> songs;
-
     public boolean login(final String user, final String password)
     {
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    //Create connection to DB
-                    conn = null;
-                    try{
-                        String driver = "net.sourceforge.jtds.jdbc.Driver";
-                        Class.forName(driver).newInstance();
-                        String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        boolean isLoginGood = false;
+        //Create connection to DB
+        Connection conn = null;
+        try{
+            String driver = "net.sourceforge.jtds.jdbc.Driver";
+            Class.forName(driver).newInstance();
+            String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
 
-                        String usernameSql = "westernhack";
-                        String passwordSql = "Password1@";
-                        conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
-                        Statement stmt = conn.createStatement();
-                        ResultSet rset = stmt.executeQuery("Select UserName, UserPassword from Users WHERE UserPassword = '" + password + "' AND UserName = '" + user + "'" );
+            String usernameSql = "westernhack";
+            String passwordSql = "Password1@";
+            conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("Select UserName, UserPassword from Users WHERE UserPassword = '" + password + "' AND UserName = '" + user + "'" );
 
-                        while(rset.next())
-                        {
-                            if(rset.getString(1) == user && rset.getString(2) == password)
-                            {
-                                isLoginGood = true;
-                                break;
-                            }
-                        }
-                        //Close connection
-                        conn.close();
-                    }catch(Exception e)
-                    {
-                        Log.w("Error Connecton", "" + e.getMessage());
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+            while(rset.next())
+            {
+                if(rset.getString(1) == user && rset.getString(2) == password)
+                {
+                    isLoginGood = true;
+                    break;
                 }
             }
-        });
+            //Close connection
+            conn.close();
+        }catch(Exception e)
+        {
+            Log.w("Error Connecton", "" + e.getMessage());
+        }
 
-        thread.start();
         return isLoginGood;
     }
 
     public boolean createUser(String user, String password)
     {
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         //Create connection to DB
         Connection conn = null;
         try{
@@ -108,49 +102,40 @@ public class DAO {
     //Wildcard on both artist and song
     public List<Song> getSong(final String term)
     {
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run() {
-                try {
-                    //Create connection to DB
-                    Connection conn = null;
-                    try {
-                        String driver = "net.sourceforge.jtds.jdbc.Driver";
-                        Class.forName(driver).newInstance();
-                        String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        ArrayList<Song> songs = new ArrayList<Song>();
+        //Create connection to DB
+        Connection conn = null;
+        try {
+            String driver = "net.sourceforge.jtds.jdbc.Driver";
+            Class.forName(driver).newInstance();
+            String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
 
-                        String usernameSql = "westernhack";
-                        String passwordSql = "Password1@";
-                        conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
-                        Statement stmt = conn.createStatement();
-                        ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "' OR Song like '" + term + "'");
+            String usernameSql = "westernhack";
+            String passwordSql = "Password1@";
+            conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "' OR Song like '" + term + "'");
 
-                        while (rset.next()) {
-                            String song = rset.getString(1);
-                            String artist = rset.getString(2);
-                            String duration = rset.getString(3);
-                            String songURL = rset.getString(4);
-                            String imageURL = rset.getString(5);
+            while (rset.next()) {
+                String song = rset.getString(1);
+                String artist = rset.getString(2);
+                String duration = rset.getString(3);
+                String songURL = rset.getString(4);
+                String imageURL = rset.getString(5);
 
-                            Song s = new Song(song, duration, artist, songURL, imageURL);
-                            songs.add(s);
-                        }
-                        //Close connection
-                        //Close connection
-                        conn.close();
-                    } catch (Exception e) {
-                        Log.w("Error Connecton", "" + e.getMessage());
-
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                }
+                Song s = new Song(song, duration, artist, songURL, imageURL);
+                songs.add(s);
             }
-        });
-        thread.start();
+            //Close connection
+            //Close connection
+            conn.close();
+        } catch (Exception e) {
+            Log.w("Error Connecton", "" + e.getMessage());
+        }
 
         return songs;
     }
