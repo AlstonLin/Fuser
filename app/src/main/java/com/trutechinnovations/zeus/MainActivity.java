@@ -70,7 +70,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public void clickSearch(View v){
         EditText text = (EditText) findViewById(R.id.search);
         String str = String.valueOf(text.getText());
-        List<Song> results = DAO.getInstance().getSong(str);
+        DAO mydao = new DAO();
+        List<Song> results = mydao.getSong(str);
         Results result = new Results();
         result.setResults(results);
         mPager.setCurrentItem(RESULTS);
