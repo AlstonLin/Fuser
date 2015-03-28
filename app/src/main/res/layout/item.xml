@@ -23,13 +23,14 @@
         android:layout_height="match_parent">
 
         <TextView
+        android:paddingTop="23dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:text="ARTIST"
         android:textStyle="bold"
         android:id="@+id/artist"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:layout_gravity="left"/>
 
         <ImageView
@@ -42,14 +43,14 @@
         android:layout_height="wrap_content"
         android:text="SONG"
         android:layout_gravity="left"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:id="@+id/title"/>
 
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DJ"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:gravity="left"
         android:id="@+id/dj"
         android:layout_gravity="left" />
@@ -57,7 +58,9 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="25"
+        android:layout_weight="20"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
@@ -66,9 +69,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/play"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:background="#FFFFFF"
