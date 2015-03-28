@@ -116,7 +116,7 @@ public class DAO {
             String passwordSql = "Password1@";
             conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "%' OR Song like '" + term + "%'");
+            ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "' OR Song LIKE '" + term + "'");
 
             while (rset.next()) {
                 String song = rset.getString(1);
