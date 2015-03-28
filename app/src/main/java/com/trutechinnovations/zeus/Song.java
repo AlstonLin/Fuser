@@ -43,7 +43,7 @@ public class Song {
         return name;
     }
 
-    public float getTime() {
+    public int getTime() {
         return time;
     }
 
