@@ -157,6 +157,47 @@ public class DAO {
         return wasCreated;
     }
 
+    public List<String> getPlayList(String user)
+    {
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+        //Create connection to DB
+        Connection conn = null;
+        try{
+            String driver = "net.sourceforge.jtds.jdbc.Driver";
+            Class.forName(driver).newInstance();
+            String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=fasle;user=xxxxxxxxx;password=xxxxxxxx;instance=SQLEXPRESS;";
+
+            String usernameSql = "westernhack";
+            String passwordSql = "Password1@";
+            conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("Select UserName from Users WHERE UserName = '" + user + "'");
+
+            while(rset.next())
+            {
+                if(rset.getString(1) == user);
+                return false;
+            }
+            stmt.executeUpdate("INSERT INTO Users VALUES('" + user + "','" + password +"')");
+            //Close connection
+        }catch(Exception e)
+        {
+            Log.w("Error Connecton", "" + e.getMessage());
+            return false;
+        }
+        try{
+            conn.close();
+        }catch (Exception e)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public boolean CreateAndAddPlaylist(Song s, String user)
     {
         if (android.os.Build.VERSION.SDK_INT > 9) {
