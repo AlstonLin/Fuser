@@ -11,6 +11,7 @@ public class User {
     private Song current;
     private Radio radio;
     private String name;
+    private boolean playPlaylist;
     private boolean mute;
     private static final User instance = new User();
 
@@ -54,5 +55,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isPlayPlaylist() {
+        return playPlaylist;
+    }
+
+    public void setPlayPlaylist(boolean playPlaylist) {
+        this.playPlaylist = playPlaylist;
     }
 }
