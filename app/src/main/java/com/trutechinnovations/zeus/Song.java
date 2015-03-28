@@ -2,36 +2,40 @@ package com.trutechinnovations.zeus;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Alston on 3/28/2015.
- */
 public class Song {
 
     private String name;
     private int time;
     private String artist;
     private String url;
-    private Bitmap image;
+    private ImageView imageView;
+    private String imageUrl;
+    private DownloadImageTask task;
 
     public Song(String name, int time, String artist, String songUrl, String imageUrl){
         this.name = name;
         this.time = time;
         this.artist = artist;
         this.url = songUrl;
-        try {
-            URL url = new URL(imageUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            image = BitmapFactory.decodeStream(input);
-        } catch (IOException e) {
+        this.imageUrl = imageUrl;
+    }
+
+
+    public void setImageView(ImageView imageView){
+        this.imageView = imageView;
+        if (task == null) {
+            task = new DownloadImageTask();
+            String[] params = new String[1];
+            params[0] = imageUrl;
+            task.execute(params);
         }
     }
 
@@ -51,4 +55,30 @@ public class Song {
         return artist;
     }
 
+
+    private class DownloadImageTask extends AsyncTask <String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... param) {
+            try {
+                URL url = new URL(param[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                return BitmapFactory.decodeStream(input);
+            } catch (IOException e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
+    }
+
+
+    public String getUrl(){
+        return url;
+    }
 }
