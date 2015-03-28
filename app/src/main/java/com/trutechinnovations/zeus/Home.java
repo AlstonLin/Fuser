@@ -49,6 +49,11 @@ public class Home extends Fragment {
         list.add(new Radio("DJ 3", new Song("SONG 3", 0, "ARTIST 3")));
         list.add(new Radio("DJ 4", new Song("SONG 4", 0, "ARTIST 4")));
         list.add(new Radio("DJ 5", new Song("SONG 5", 0, "ARTIST 5")));
+        list.add(new Radio("DJ 1", new Song("SONG 1", 0, "ARTIST 1")));
+        list.add(new Radio("DJ 2", new Song("SONG 2", 0, "ARTIST 2")));
+        list.add(new Radio("DJ 3", new Song("SONG 3", 0, "ARTIST 3")));
+        list.add(new Radio("DJ 4", new Song("SONG 4", 0, "ARTIST 4")));
+        list.add(new Radio("DJ 5", new Song("SONG 5", 0, "ARTIST 5")));
         return list;
     }
 
