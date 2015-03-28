@@ -9,6 +9,7 @@ public class User {
     private ArrayList<Radio> favs;
     private Song current;
     private Radio radio;
+    private String name;
     private boolean mute;
     private static final User instance = new User();
 
@@ -44,4 +45,11 @@ public class User {
         this.mute = mute;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

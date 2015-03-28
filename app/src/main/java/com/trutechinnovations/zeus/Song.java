@@ -13,14 +13,14 @@ import java.net.URL;
 public class Song {
 
     private String name;
-    private String time;
+    private int time;
     private String artist;
     private String url;
     private ImageView imageView;
     private String imageUrl;
     private DownloadImageTask task;
 
-    public Song(String name, String time, String artist, String songUrl, String imageUrl){
+    public Song(String name, int time, String artist, String songUrl, String imageUrl){
         this.name = name;
         this.time = time;
         this.artist = artist;
@@ -31,7 +31,7 @@ public class Song {
 
     public void setImageView(ImageView imageView){
         this.imageView = imageView;
-        if (task == null) {
+        if (task == null || task.getStatus() != AsyncTask.Status.RUNNING) {
             task = new DownloadImageTask();
             String[] params = new String[1];
             params[0] = imageUrl;
@@ -43,11 +43,11 @@ public class Song {
         return name;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
