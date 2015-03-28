@@ -27,7 +27,7 @@
             android:layout_weight="3"
             android:layout_height="wrap_content"
             android:background="#20aec2"
-            android:src="@drawable/search"
+            android:src="@drawable/searchicon"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:id="@+id/playlistSearch"/>
