@@ -17,10 +17,7 @@ import net.sourceforge.jtds.jdbc.*;
  */
 public class DAO {
 
-    public void DAO()
-    {
-
-    }
+    private static DAO instance = new DAO();
 
     public boolean login(final String user, final String password)
     {
@@ -140,5 +137,8 @@ public class DAO {
         return songs;
     }
 
+    public static DAO getInstance(){
+        return instance;
+    }
 
 }

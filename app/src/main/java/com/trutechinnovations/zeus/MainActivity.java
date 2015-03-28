@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import java.util.List;
+
 
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener{
-    public static final int DISCOVER = 0, PLAY = 1, ME = 2;
+    public static final int DISCOVER = 0, PLAY = 1, ME = 2, RESULTS = 3;
     private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
+    private ScreenSlidePagerAdapter mPagerAdapter;
     private static final int NUM_PAGES = 3;
     private MediaPlayer player = new MediaPlayer();
 
@@ -61,6 +63,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         mPager.setCurrentItem(ME);
     }
 
+    public void clickResults(View v){
+        mPager.setCurrentItem(RESULTS);
+    }
+
+    public void clickSearch(View v){
+        EditText text = (EditText) findViewById(R.id.search);
+        String str = String.valueOf(text.getText());
+        List<Song> results = DAO.getInstance().getSong(str);
+        Results result = new Results();
+        result.setResults(results);
+        mPager.setCurrentItem(RESULTS);
+    }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -94,6 +109,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                     return Play.getInstance();
                 case ME:
                     return Me.getInstance();
+                case RESULTS:
+                    return Results.getInstance();
                 default:
                     throw new IllegalArgumentException();
             }

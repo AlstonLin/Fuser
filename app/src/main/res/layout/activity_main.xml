@@ -17,8 +17,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:id="@+id/search"
+            android:maxLines="1"
             android:background="#FFFFFF"
-            android:text=" Search"
             android:ems="10"
             android:textSize="18sp"/>
 
@@ -30,6 +30,7 @@
             android:src="@drawable/search"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
+            android:onClick="clickSearch"
             android:id="@+id/go"/>
     </LinearLayout>
 
@@ -88,6 +89,20 @@
             android:background="#FFFFFF"
             android:onClick="clickMe"
             android:id="@+id/me" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:src="@drawable/search"
+            android:scaleType="fitCenter"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#FFFFFF"
+            android:onClick="clickResults"
+            android:id="@+id/results" />
 
     </LinearLayout>
 
