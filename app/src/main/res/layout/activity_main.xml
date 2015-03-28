@@ -16,5 +16,50 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:src="@drawable/discover"
+            android:scaleType="fitCenter"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#FFFFFF"
+            android:onClick="clickDiscover"
+            android:id="@+id/discover" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:src="@drawable/now"
+            android:scaleType="fitCenter"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#FFFFFF"
+            android:onClick="clickPlay"
+            android:id="@+id/play" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:src="@drawable/me"
+            android:scaleType="fitCenter"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#FFFFFF"
+            android:onClick="clickMe"
+            android:id="@+id/me" />
+
+    </LinearLayout>
+
 </LinearLayout>

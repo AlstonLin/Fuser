@@ -7,6 +7,7 @@ public class Radio {
     private String name;
     private Song song;
 
+
     private ArrayList<Song> playlist;
 
     public Radio(String name, Song song){
@@ -26,5 +27,6 @@ public class Radio {
     public void setSong(Song song){
         this.song = song;
     }
+
 
 }

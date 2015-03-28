@@ -25,6 +25,7 @@ public class DAO {
     //Global variable for login status
     private boolean isLoginGood = false;
     private Connection conn;
+    public ArrayList<Song> songs;
 
     public boolean login(final String user, final String password)
     {
@@ -107,49 +108,50 @@ public class DAO {
     //Wildcard on both artist and song
     public List<Song> getSong(final String term)
     {
-        final List<Song> songs = new ArrayList<Song>();
-        Thread thread = new Thread(new Runnable(){
+        Thread thread = new Thread(new Runnable()
+        {
             @Override
             public void run() {
-                //Create connection to DB
-                conn = null;
-                try{
-                    String driver = "net.sourceforge.jtds.jdbc.Driver";
-                    Class.forName(driver).newInstance();
-                    String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
+                try {
+                    //Create connection to DB
+                    Connection conn = null;
+                    try {
+                        String driver = "net.sourceforge.jtds.jdbc.Driver";
+                        Class.forName(driver).newInstance();
+                        String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
 
-                    String usernameSql = "westernhack";
-                    String passwordSql = "Password1@";
-                    conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
-                    Statement stmt = conn.createStatement();
-                    ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term +   "' OR Song like '" + term + "'"  );
+                        String usernameSql = "westernhack";
+                        String passwordSql = "Password1@";
+                        conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
+                        Statement stmt = conn.createStatement();
+                        ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "' OR Song like '" + term + "'");
 
-                    while(rset.next())
-                    {
-                        String song = rset.getString(1);
-                        String artist = rset.getString(2);
-                        String duration = rset.getString(3);
-                        String songURL = rset.getString(4);
-                        String imageURL = rset.getString(5);
+                        while (rset.next()) {
+                            String song = rset.getString(1);
+                            String artist = rset.getString(2);
+                            String duration = rset.getString(3);
+                            String songURL = rset.getString(4);
+                            String imageURL = rset.getString(5);
 
-                        Song s = new Song(song, duration, artist, songURL, imageURL );
-                        songs.add(s);
+                            Song s = new Song(song, duration, artist, songURL, imageURL);
+                            songs.add(s);
+                        }
+                        //Close connection
+                        //Close connection
+                        conn.close();
+                    } catch (Exception e) {
+                        Log.w("Error Connecton", "" + e.getMessage());
+
                     }
-                    //Close connection
-                }catch(Exception e)
-                {
-                    Log.w("Error Connecton", "" + e.getMessage());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
                 }
             }
         });
-
         thread.start();
-        try{
-            conn.close();
-        }catch (Exception e)
-        {
-            return songs;
-        }
+
         return songs;
     }
 
