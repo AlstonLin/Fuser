@@ -6,10 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,7 +32,7 @@ public class Home extends Fragment {
     /**
      * Sets up the ListView.
      */
-    private void setupList(View v){
+    private void setupList(View v) {
         ListView lv = (ListView) v.findViewById(R.id.list);
         ArrayList<Radio> radios = new ArrayList<>();
         radios = generateTestRadios(radios);
@@ -44,14 +41,14 @@ public class Home extends Fragment {
     }
 
 
-    private ArrayList<Radio> getRadios(ArrayList<Radio> list){
+    private ArrayList<Radio> getRadios(ArrayList<Radio> list) {
         return list;
     }
 
     /**
      * FOR TESTING ONLY
      */
-    private ArrayList<Radio> generateTestRadios(ArrayList<Radio> list){
+    private ArrayList<Radio> generateTestRadios(ArrayList<Radio> list) {
         DAO mydao = new DAO();
         List<Song> songs = mydao.getSong("drake");
         System.out.print("");
@@ -62,6 +59,8 @@ public class Home extends Fragment {
     }
 
     private class ListAdapter extends ArrayAdapter<Radio> {
+        private ImageButton last = null;
+
         public ListAdapter(Context context, int resource, List<Radio> items) {
             super(context, resource, items);
         }
@@ -77,9 +76,9 @@ public class Home extends Fragment {
                 vi = LayoutInflater.from(getContext());
                 v = vi.inflate(R.layout.item, null);
                 ImageButton b = (ImageButton) v.findViewById(R.id.play);
-                if (!User.getInstance().isMute() && User.getInstance().getRadio() == r){
+                if (!User.getInstance().isMute() && User.getInstance().getRadio() == r) {
                     b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
-                }else{
+                } else {
                     b.setImageDrawable(getResources().getDrawable(R.drawable.play));
                 }
             }
@@ -95,20 +94,25 @@ public class Home extends Fragment {
                 b.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (r == User.getInstance().getRadio()){
-                            if (User.getInstance().isMute()){
+                        if (r == User.getInstance().getRadio()) {
+                            if (User.getInstance().isMute()) {
                                 User.getInstance().setMute(false);
                                 b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
-                                ((MainActivity)getActivity()).listenRadio(r);
-                            }else{
+                                ((MainActivity) getActivity()).listenRadio(r);
+                            } else {
                                 User.getInstance().setMute(true);
                                 b.setImageDrawable(getResources().getDrawable(R.drawable.play));
-                                ((MainActivity)getActivity()).muteMusic();
+                                ((MainActivity) getActivity()).muteMusic();
                             }
-                        }else{
-                            ((MainActivity)getActivity()).listenRadio(r);
+                        } else {
+                            if (last != null) {
+                                last.setImageDrawable(getResources().getDrawable(R.drawable.play));
+                            }
+                            b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
+                            ((MainActivity) getActivity()).listenRadio(r);
                             User.getInstance().setMute(false);
                         }
+                        last = b;
                     }
                 });
                 title.setText(r.getSong().getName());
@@ -119,7 +123,7 @@ public class Home extends Fragment {
         }
     }
 
-    public static Home getInstance(){
+    public static Home getInstance() {
         return instance;
     }
 }

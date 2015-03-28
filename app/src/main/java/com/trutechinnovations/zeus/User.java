@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class User {
     private ArrayList<Radio> favs;
+    private ArrayList<Song> playlist = new ArrayList<>();
     private Song current;
     private Radio radio;
     private String name;
@@ -32,6 +33,8 @@ public class User {
     public Radio getRadio() {
         return radio;
     }
+
+    public ArrayList<Song> getPlaylist(){return playlist;}
 
     public void setRadio(Radio radio) {
         this.radio = radio;

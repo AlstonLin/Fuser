@@ -17,30 +17,35 @@ import java.util.List;
 /**
  * Created by Alston on 3/28/2015.
  */
-public class Results extends Fragment{
+public class Results extends Fragment {
 
-    private static Results instance;
+    private static Results instance = new Results();
     private List<Song> results;
+    private View v;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.results, container, false);
+        v = rootView;
         return rootView;
     }
 
-    private void setupList(View v){
+    private void setupList() {
         if (v != null) {
             ListView lv = (ListView) v.findViewById(R.id.list);
             lv.setAdapter(new ListAdapter(getActivity(), R.layout.item, results));
         }
     }
 
-    public void setResults(List<Song> results){
+    public void setResults(List<Song> results) {
         this.results = results;
-        setupList(getView());
+        setupList();
     }
 
     private class ListAdapter extends ArrayAdapter<Song> {
+        private ImageButton last = null;
+
         public ListAdapter(Context context, int resource, List<Song> items) {
             super(context, resource, items);
         }
@@ -54,11 +59,11 @@ public class Results extends Fragment{
             if (v == null) {
                 LayoutInflater vi;
                 vi = LayoutInflater.from(getContext());
-                v = vi.inflate(R.layout.item, null);
+                v = vi.inflate(R.layout.result_item, null);
                 ImageButton b = (ImageButton) v.findViewById(R.id.play);
-                if (!User.getInstance().isMute() && User.getInstance().getCurrent() == s){
+                if (!User.getInstance().isMute() && User.getInstance().getCurrent() == s) {
                     b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
-                }else{
+                } else {
                     b.setImageDrawable(getResources().getDrawable(R.drawable.play));
                 }
             }
@@ -73,20 +78,25 @@ public class Results extends Fragment{
                 b.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (s == User.getInstance().getCurrent()){
-                            if (User.getInstance().isMute()){
+                        if (s == User.getInstance().getCurrent()) {
+                            if (User.getInstance().isMute()) {
                                 User.getInstance().setMute(false);
                                 b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
-                                ((MainActivity)getActivity()).unmuteSong();
-                            }else{
+                                ((MainActivity) getActivity()).unmuteSong();
+                            } else {
                                 User.getInstance().setMute(true);
                                 b.setImageDrawable(getResources().getDrawable(R.drawable.play));
-                                ((MainActivity)getActivity()).muteMusic();
+                                ((MainActivity) getActivity()).muteMusic();
                             }
-                        }else{
-                            ((MainActivity)getActivity()).playSong(s);
+                        } else {
+                            if (last != null) {
+                                last.setImageDrawable(getResources().getDrawable(R.drawable.play));
+                            }
+                            b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
+                            ((MainActivity) getActivity()).playSong(s);
                             User.getInstance().setMute(false);
                         }
+                        last = b;
                     }
                 });
                 title.setText(s.getName());
@@ -96,7 +106,7 @@ public class Results extends Fragment{
         }
     }
 
-    public static Results getInstance(){
+    public static Results getInstance() {
         return instance;
     }
 

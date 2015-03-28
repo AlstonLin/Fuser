@@ -5,17 +5,14 @@
     android:paddingRight="25dp"
     android:paddingTop="25dp"
     android:paddingBottom="25dp"
+    android:background="#FFFFFF"
     android:layout_height="match_parent">
 
-    <Button
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
-        android:text="Make Playlist"
-        android:textSize="36sp"
-        android:textColor="#FFFFFF"
-        android:background="#20aec2"
-        android:id="@+id/playlist" />
+        android:id="@+id/list"
+        android:layout_weight="15"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -27,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="USER"
-            android:textSize="24sp"
+            android:textSize="21sp"
             android:id="@+id/user" />
 
         <TextView
@@ -40,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FOLLOWERS"
-            android:textSize="24sp"
+            android:textSize="21sp"
             android:id="@+id/followers" />
 
         <TextView
@@ -53,7 +50,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FOLLOWING"
-            android:textSize="24sp"
+            android:textSize="21sp"
             android:id="@+id/following" />
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="ADD SONGS"
+        android:textSize="36sp"
+        android:textColor="#FFFFFF"
+        android:background="#20aec2"
+        android:id="@+id/playlist" />
 </LinearLayout>
