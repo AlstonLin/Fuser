@@ -20,7 +20,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public static final int DISCOVER = 0, PLAY = 1, ME = 2, RESULTS = 3;
     private ViewPager mPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 4;
     private MediaPlayer player = new MediaPlayer();
 
     @Override
@@ -31,25 +31,13 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(4);
         mPager.setOnPageChangeListener(this);
         EditText myEditText = (EditText) findViewById(R.id.search);
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
 
     public void clickDiscover(View v){
         mPager.setCurrentItem(DISCOVER);
@@ -72,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         String str = String.valueOf(text.getText());
         DAO mydao = new DAO();
         List<Song> results = mydao.getSong(str);
-        Results result = new Results();
+        Results result = Results.getInstance();
         result.setResults(results);
         mPager.setCurrentItem(RESULTS);
     }
@@ -152,13 +140,13 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     public void listenRadio(Radio r){
         try {
+            User.getInstance().setCurrent(r.getSong());
+            User.getInstance().setRadio(r);
             player.reset();
             player.setDataSource(r.getSong().getUrl());
             player.prepare();
             player.start();
             player.seekTo(r.getSong().getTime());
-            User.getInstance().setCurrent(r.getSong());
-            User.getInstance().setRadio(r);
         } catch (Exception e) {
         }
     }
