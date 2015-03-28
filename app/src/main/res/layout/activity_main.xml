@@ -1,16 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
+
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:background="#20aec2"
-        android:layout_weight="10">
+        android:layout_weight="14"
+        android:id="@+id/id">
+
 
         <EditText
+            android:textSize="30sp"
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="wrap_content"
@@ -19,15 +23,14 @@
             android:id="@+id/search"
             android:maxLines="1"
             android:background="#FFFFFF"
-            android:ems="10"
-            android:textSize="18sp"/>
+            android:ems="10"/>
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
             android:background="#20aec2"
-            android:src="@drawable/search"
+            android:src="@drawable/searchicon"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:onClick="clickSearch"
@@ -45,8 +48,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="15"
         android:layout_gravity="center_horizontal">
+
+
 
         <ImageButton
             android:layout_width="0dp"
@@ -56,7 +61,7 @@
             android:scaleType="fitCenter"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:background="#FFFFFF"
             android:onClick="clickDiscover"
@@ -70,7 +75,7 @@
             android:scaleType="fitCenter"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:background="#FFFFFF"
             android:onClick="clickPlay"
@@ -84,7 +89,7 @@
             android:scaleType="fitCenter"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:background="#FFFFFF"
             android:onClick="clickMe"
@@ -98,7 +103,7 @@
             android:scaleType="fitCenter"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:background="#FFFFFF"
             android:onClick="clickResults"
