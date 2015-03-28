@@ -13,14 +13,14 @@ import java.net.URL;
 public class Song {
 
     private String name;
-    private float time;
+    private int time;
     private String artist;
     private String url;
     private ImageView imageView;
     private String imageUrl;
     private DownloadImageTask task;
 
-    public Song(String name, float time, String artist, String songUrl, String imageUrl){
+    public Song(String name, int time, String artist, String songUrl, String imageUrl){
         this.name = name;
         this.time = time;
         this.artist = artist;
@@ -47,7 +47,7 @@ public class Song {
         return time;
     }
 
-    public void setTime(float time) {
+    public void setTime(int time) {
         this.time = time;
     }
 

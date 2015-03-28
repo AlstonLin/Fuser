@@ -125,7 +125,7 @@ public class DAO {
                 String songURL = rset.getString(4);
                 String imageURL = rset.getString(5);
 
-                Song s = new Song(song, Float.parseFloat(duration), artist, songURL, imageURL);
+                Song s = new Song(song, 0, artist, songURL, imageURL);
                 songs.add(s);
             }
             //Close connection
