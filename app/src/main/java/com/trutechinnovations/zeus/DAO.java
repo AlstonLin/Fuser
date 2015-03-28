@@ -63,7 +63,6 @@ public class DAO {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
         //Create connection to DB
         Connection conn = null;
         try{
@@ -75,23 +74,25 @@ public class DAO {
             String passwordSql = "Password1@";
             conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("Select , Password from songs WHERE Password ==" + password + " && WHERE UserName == " + user );
+            ResultSet rset = stmt.executeQuery("Select UserName from Users WHERE UserName = '" + user + "'");
 
             while(rset.next())
             {
-                String g = rset.getString(1);
-                System.out.print(g);
+                if(rset.getString(1) == user);
+                    return false;
             }
+            ResultSet rsetInsert = stmt.executeQuery("INSERT INTO Users VALUES('" + user + ',' + password +"')");
             //Close connection
         }catch(Exception e)
         {
             Log.w("Error Connecton", "" + e.getMessage());
+            return false;
         }
         try{
             conn.close();
         }catch (Exception e)
         {
-
+            return false;
         }
         return true;
     }
@@ -115,7 +116,7 @@ public class DAO {
             String passwordSql = "Password1@";
             conn = DriverManager.getConnection(connString, usernameSql, passwordSql);
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "' OR Song like '" + term + "'");
+            ResultSet rset = stmt.executeQuery("Select Song, Artist, Duration, SongURL, ImageURL from Song WHERE Artist LIKE '" + term + "%' OR Song like '" + term + "%'");
 
             while (rset.next()) {
                 String song = rset.getString(1);
@@ -124,7 +125,7 @@ public class DAO {
                 String songURL = rset.getString(4);
                 String imageURL = rset.getString(5);
 
-                Song s = new Song(song, Integer.parseInt(duration), artist, songURL, imageURL);
+                Song s = new Song(song, Float.parseFloat(duration), artist, songURL, imageURL);
                 songs.add(s);
             }
             //Close connection
