@@ -63,18 +63,13 @@
         </LinearLayout>
 
         <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_width="371dp"
+            android:layout_height="152dp"
             android:src="@drawable/play_white"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
             android:id="@+id/play"
             android:background="#20aec2"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:layout_gravity="bottom" />
     </LinearLayout>
 </LinearLayout>
