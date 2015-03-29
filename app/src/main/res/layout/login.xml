@@ -1,89 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
         android:layout_weight="10"
-        android:src="@drawable/logo"
-        android:id="@+id/imageView"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"/>
+        android:src="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:text="Username"
-            android:layout_marginLeft="25dp"/>
+        android:layout_weight="2"
+        android:paddingBottom="13dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingTop="13dp">
 
         <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="10"
+            android:background="@drawable/textbox2"
+            android:ems="10"
+            android:hint="Username"
+            android:maxLines="1"
+            android:paddingBottom="20dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="20dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_marginBottom="20dp"
+        android:layout_weight="2"
+        android:paddingBottom="13dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingTop="13dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            android:text="Password"
-            android:layout_marginLeft="25dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password"
-        android:layout_gravity="right" />
+            android:layout_gravity="center"
+            android:layout_weight="6.80"
+            android:background="@drawable/textbox2"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingBottom="20dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="20dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="vertical"
-        android:background="#b4e0e1"
-        android:layout_weight="6">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="Log In"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:background="#224687"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:id="@+id/login"
-            android:onClick="login"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="3" />
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginBottom="100dp">
 
         <Button
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="Sign Up"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:background="#2abfd4"
-            android:id="@+id/signup"
-            android:onClick="signup"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:background="#224687"
+            android:onClick="login"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:text="Log In"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp">
+            </Button>
     </LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/signup"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="3"
+                android:background="#2abfd4"
+                android:onClick="signup"
+                android:text="Sign Up"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </LinearLayout>
