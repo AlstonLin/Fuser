@@ -34,9 +34,21 @@ public class Home extends Fragment {
      */
     private void setupList(View v) {
         ListView lv = (ListView) v.findViewById(R.id.list);
-        DAO dao = new DAO();
-        List<Radio> radios = dao.getAllRadios();
+        List<Radio> radios = generateTestRadios(new ArrayList<Radio>());
         lv.setAdapter(new ListAdapter(getActivity(), R.layout.item, radios));
+    }
+
+
+
+    /**
+     * FOR TESTING ONLY
+     */
+    private ArrayList<Radio> generateTestRadios(ArrayList<Radio> list) {
+        DAO mydao = new DAO();
+        List<Song> songs = mydao.getSong("drake");
+        System.out.print("");
+        list.add(new Radio("test", new Song("0 to 100", 0, "Drake", "https://dl.dropbox.com/s/mu28po1o9pila6n/01%200%20to%20100.mp3?dl=0", "http://hw-img.datpiff.com/mee6c8cb/Drake_Rookie_And_The_Veteran-front.jpg")));
+        return list;
     }
 
     private class ListAdapter extends ArrayAdapter<Radio> {

@@ -30,11 +30,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /**
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-         **/
-        openHome();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 

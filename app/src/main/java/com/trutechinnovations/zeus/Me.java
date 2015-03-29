@@ -32,14 +32,13 @@ public class Me extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.me, container, false);
         setupList(rootView);
-        TextView following = (TextView) rootView.findViewById(R.id.following);
         TextView followers = (TextView) rootView.findViewById(R.id.followers);
+        TextView user = (TextView) rootView.findViewById(R.id.user);
         DAO mydao = new DAO();
 
         List<String> iFollowers = mydao.getFollowers("Cale");
 
-        List<String> iFollowings = mydao.getFollowing("Cale");
-        following.setText("FOLLOWING " + iFollowings.size() );
+        user.setText(User.getInstance().getName());
         followers.setText("FOLLOWERS " + iFollowers.size());
 
         Button b = (Button) rootView.findViewById(R.id.playlist);

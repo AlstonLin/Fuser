@@ -43,20 +43,6 @@
             android:id="@+id/followers"
             android:layout_marginRight="5dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="|"
-            android:layout_marginRight="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FOLLOWING"
-            android:textSize="16sp"
-            android:id="@+id/following"
-            android:layout_marginRight="5dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
