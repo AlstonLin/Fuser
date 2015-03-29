@@ -19,7 +19,7 @@
             android:layout_marginLeft="25dp"
             android:id="@+id/playlistText"
             android:maxLines="1"
-            android:background="#FFFFFF"
+            android:background="@drawable/textbox"
             android:ems="10"
             android:paddingRight="2dp"
             android:paddingTop="1dp"
