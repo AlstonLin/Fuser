@@ -40,4 +40,14 @@
         android:id="@+id/playlistList"
         android:layout_gravity="center_horizontal" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:background="#66BB6A"
+        android:id="@+id/done"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
