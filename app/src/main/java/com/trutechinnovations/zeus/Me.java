@@ -61,12 +61,9 @@ public class Me extends Fragment {
 
     public void playPlaylist() {
         if (User.getInstance().isMute()){
-            if (User.getInstance().getPlaylist().size() > 0) {
-                Song s = User.getInstance().getPlaylist().remove(0);
-                ((MainActivity) getActivity()).playSong(s);
+                ((MainActivity) getActivity()).muteMusic();
                 User.getInstance().setMute(false);
                 ((Button)getView().findViewById(R.id.play)).setText("Play");
-            }
         }else {
             if (User.getInstance().isPlayPlaylist()){
                 User.getInstance().setMute(true);
@@ -76,7 +73,6 @@ public class Me extends Fragment {
                     User.getInstance().setPlayPlaylist(true);
                     Song s = User.getInstance().getPlaylist().remove(0);
                     ((MainActivity) getActivity()).playSong(s);
-                    ((ImageButton)getView().findViewById(R.id.play)).setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play_white));
                     ((Button)getView().findViewById(R.id.play)).setText("Play");
                 }
             }

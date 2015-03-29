@@ -181,6 +181,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                     public void onCompletion(MediaPlayer mp) {
                         if (User.getInstance().getPlaylist().size() > 0){
                             playSong(User.getInstance().getPlaylist().remove(0));
+
                         }
                     }
                 });

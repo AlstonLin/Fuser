@@ -22,9 +22,10 @@
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:id="@+id/search"
-            android:paddingRight="2dp"
+            android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingBottom="1dp"
+            android:hint="Search"
             android:maxLines="1"
             android:background="@drawable/textbox"
             android:ems="10"/>
