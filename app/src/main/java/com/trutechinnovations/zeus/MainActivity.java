@@ -1,6 +1,7 @@
 package com.trutechinnovations.zeus;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private ViewPager mPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
     private static final int NUM_PAGES = 4;
+    private ImageButton last;
     private MediaPlayer player = new MediaPlayer();
 
     @Override
@@ -75,6 +78,9 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(4);
         mPager.setOnPageChangeListener(this);
+
+        last = (ImageButton) findViewById(R.id.discover);
+        last.setBackgroundColor(Color.parseColor("#E0E0E0"));
     }
 
     public void clickDiscover(View v){
@@ -110,10 +116,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
+        last.setBackgroundColor(Color.parseColor("#FFFFFF"));
         switch (position){
+            case DISCOVER:
+                last = (ImageButton) findViewById(R.id.discover);
             case PLAY:
+                last = (ImageButton) findViewById(R.id.play);
                 Play.getInstance().update();
+            case ME:
+                last = (ImageButton) findViewById(R.id.me);
+            case RESULTS:
+                last = (ImageButton) findViewById(R.id.results);
         }
+        last.setBackgroundColor(Color.parseColor("#E0E0E0"));
     }
 
     @Override
