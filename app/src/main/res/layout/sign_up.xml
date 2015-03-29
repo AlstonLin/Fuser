@@ -65,7 +65,8 @@
         android:paddingTop="15dp"
         android:textSize="36sp"
         android:background="#2abfd4"
-        android:text="Sign Up"
-        android:onClick="register" />
+        android:text="Enter"
+        android:onClick="register"
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>
