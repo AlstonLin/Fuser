@@ -66,9 +66,10 @@
             android:text="Follow"
             android:background="#224687"
             android:textColor="#FFFFFF"
-            android:id="@+id/button"
+            android:id="@+id/follow"
             android:layout_weight="1"
             />
+
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="fill_parent"

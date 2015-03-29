@@ -41,7 +41,7 @@ public class DAO {
 
             while(rset.next())
             {
-                if(rset.getString(1) == user && rset.getString(2) == password)
+                if(rset.getString(1).equals(user) && rset.getString(2).equals(password))
                 {
                     isLoginGood = true;
                     break;
@@ -56,11 +56,6 @@ public class DAO {
         }
 
         return isLoginGood;
-    }
-
-    public void updateSongDuration(Song s)
-    {
-        
     }
 
     public List<String> getFollowing(String user)
@@ -158,7 +153,7 @@ public class DAO {
         return wasCreated;
     }
 
-    public boolean CreateAndAddPlaylist(Song s, String user)
+    public boolean createAndAddPlaylist(Song s, String user)
     {
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -199,7 +194,7 @@ public class DAO {
         try{
             String driver = "net.sourceforge.jtds.jdbc.Driver";
             Class.forName(driver).newInstance();
-            String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=fasle;user=xxxxxxxxx;password=xxxxxxxx;instance=SQLEXPRESS;";
+            String connString = "jdbc:jtds:sqlserver://ekwuetvgxd.database.windows.net:1433/djdb;encrypt=false;user=westernhack;password=Password1@;instance=SQLEXPRESS;";
 
             String usernameSql = "westernhack";
             String passwordSql = "Password1@";
@@ -265,7 +260,7 @@ public class DAO {
         return songObject;
     }
 
-    public boolean creatRadio(String name, Song s)
+    public boolean createRadio(String name, Song s)
     {
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

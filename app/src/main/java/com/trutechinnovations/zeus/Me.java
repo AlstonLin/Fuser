@@ -27,6 +27,7 @@ public class Me extends Fragment {
     }
     private List<Song> results;
     private PopupWindow playlistSelect;
+    private ListAdapter playlistAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.me, container, false);
@@ -39,7 +40,7 @@ public class Me extends Fragment {
 
         List<String> iFollowings = mydao.getFollowing("Cale");
         following.setText("FOLLOWING " + iFollowings.size() );
-        followers.setText("FOLLWERS " + iFollowers.size());
+        followers.setText("FOLLOWERS " + iFollowers.size());
 
         Button b = (Button) rootView.findViewById(R.id.playlist);
         Button c = (Button) rootView.findViewById(R.id.play);
@@ -60,22 +61,22 @@ public class Me extends Fragment {
 
 
     public void playPlaylist() {
-        if (User.getInstance().isMute()){
-                ((MainActivity) getActivity()).muteMusic();
-                User.getInstance().setMute(false);
-                ((Button)getView().findViewById(R.id.play)).setText("Play");
-        }else {
-            if (User.getInstance().isPlayPlaylist()){
-                User.getInstance().setMute(true);
-                ((Button)getView().findViewById(R.id.play)).setText("Pause");
-            }else {
-                if (User.getInstance().getPlaylist().size() > 0) {
-                    User.getInstance().setPlayPlaylist(true);
-                    Song s = User.getInstance().getPlaylist().remove(0);
-                    ((MainActivity) getActivity()).playSong(s);
-                    ((Button)getView().findViewById(R.id.play)).setText("Play");
-                }
+        if (User.getInstance().getSource() != User.PLAYLIST){
+            if (User.getInstance().getPlaylist().size() > 0) {
+                Song s = User.getInstance().getPlaylist().remove(0);
+                User.getInstance().setSource(User.PLAYLIST);
+                ((MainActivity) getActivity()).playSong(s);
+                playlistAdapter.notifyDataSetChanged();
+                ((Button) getView().findViewById(R.id.play)).setText("Pause");
             }
+        } else if (User.getInstance().isPlaying()){
+            User.getInstance().setPlaying(false);
+            ((MainActivity) getActivity()).muteMusic();
+            ((Button)getView().findViewById(R.id.play)).setText("Play");
+        }else {
+            ((MainActivity) getActivity()).unmuteSong();
+            User.getInstance().setPlaying(true);
+            ((Button)getView().findViewById(R.id.play)).setText("Pause");
         }
 
     }
@@ -85,7 +86,8 @@ public class Me extends Fragment {
      */
     private void setupList(View v){
         ListView lv = (ListView) v.findViewById(R.id.list);
-        lv.setAdapter(new ListAdapter(getActivity(), R.layout.item, User.getInstance().getPlaylist()));
+        playlistAdapter = new ListAdapter(getActivity(), R.layout.item, User.getInstance().getPlaylist());
+        lv.setAdapter(playlistAdapter);
     }
 
 
@@ -128,6 +130,10 @@ public class Me extends Fragment {
         }
     }
 
+
+    public void updatePlaylistAdapter() {
+        playlistAdapter.notifyDataSetChanged();
+    }
 
     public void finish(){
         playlistSelect.dismiss();
@@ -203,4 +209,5 @@ public class Me extends Fragment {
             return v;
         }
     }
+
 }

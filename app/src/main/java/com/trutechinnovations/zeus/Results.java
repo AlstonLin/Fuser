@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,31 +61,31 @@ public class Results extends Fragment {
                 LayoutInflater vi;
                 vi = LayoutInflater.from(getContext());
                 v = vi.inflate(R.layout.result_item, null);
-                ImageButton b = (ImageButton) v.findViewById(R.id.play);
-                if (!User.getInstance().isMute() && User.getInstance().getCurrent() == s) {
-                    b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
-                } else {
-                    b.setImageDrawable(getResources().getDrawable(R.drawable.play));
-                }
+            }
+
+            final ImageButton b = (ImageButton) v.findViewById(R.id.play);
+            if (!User.getInstance().isPlaying() && User.getInstance().getCurrent() == s) {
+                b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
+            } else {
+                b.setImageDrawable(getResources().getDrawable(R.drawable.play));
             }
 
             if (s != null) {
 
                 TextView title = (TextView) v.findViewById(R.id.title);
                 TextView artist = (TextView) v.findViewById(R.id.artist);
-                final ImageButton b = (ImageButton) v.findViewById(R.id.play);
                 s.setImageView((ImageView) v.findViewById(R.id.image));
 
                 b.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (s == User.getInstance().getCurrent()) {
-                            if (User.getInstance().isMute()) {
-                                User.getInstance().setMute(false);
+                            if (!User.getInstance().isPlaying()) {
+                                User.getInstance().setPlaying(true);
                                 b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                                 ((MainActivity) getActivity()).unmuteSong();
                             } else {
-                                User.getInstance().setMute(true);
+                                User.getInstance().setPlaying(false);
                                 b.setImageDrawable(getResources().getDrawable(R.drawable.play));
                                 ((MainActivity) getActivity()).muteMusic();
                             }
@@ -94,8 +95,8 @@ public class Results extends Fragment {
                             }
                             b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                             ((MainActivity) getActivity()).playSong(s);
-                            User.getInstance().setPlayPlaylist(false);
-                            User.getInstance().setMute(false);
+                            User.getInstance().setPlaying(false);
+                            User.getInstance().setSource(User.FREE);
                         }
                         last = b;
                     }

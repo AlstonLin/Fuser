@@ -6,13 +6,14 @@ import java.util.ArrayList;
  * Created by Alston on 3/28/2015.
  */
 public class User {
+    public static final int NONE = 0, RADIO = 1, PLAYLIST = 2, FREE = 3;
     private ArrayList<Radio> favs;
     private ArrayList<Song> playlist = new ArrayList<>();
     private Song current;
     private Radio radio;
     private String name;
-    private boolean playPlaylist;
-    private boolean mute;
+    private boolean playing;
+    private int source;
     private static final User instance = new User();
 
     private User(){ //SINGLETON
@@ -41,14 +42,6 @@ public class User {
         this.radio = radio;
     }
 
-    public boolean isMute() {
-        return mute;
-    }
-
-    public void setMute(boolean mute) {
-        this.mute = mute;
-    }
-
     public String getName() {
         return name;
     }
@@ -57,11 +50,21 @@ public class User {
         this.name = name;
     }
 
-    public boolean isPlayPlaylist() {
-        return playPlaylist;
+    public int getSource() {
+        return source;
     }
 
-    public void setPlayPlaylist(boolean playPlaylist) {
-        this.playPlaylist = playPlaylist;
+    public void setSource(int source) {
+        this.source = source;
     }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+
+
 }

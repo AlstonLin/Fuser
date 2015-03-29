@@ -11,6 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,14 +30,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /**
         super.onCreate(savedInstanceState);
-        /*
         setContentView(R.layout.login);
-        EditText myEditText = (EditText) findViewById(R.id.username);
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
-        */
+         **/
         openHome();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public void login(View v){
@@ -78,6 +77,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(4);
         mPager.setOnPageChangeListener(this);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         last = (ImageButton) findViewById(R.id.discover);
         last.setBackgroundColor(Color.parseColor("#E0E0E0"));
@@ -175,13 +176,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             player.setDataSource(s.getUrl());
             player.prepare();
             player.start();
-            if (User.getInstance().isPlayPlaylist()){
+
+            if (User.getInstance().getSource() == User.PLAYLIST){
+                final DAO dao = new DAO();
+                dao.createRadio(User.getInstance().getName(), s);
                 player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         if (User.getInstance().getPlaylist().size() > 0){
                             playSong(User.getInstance().getPlaylist().remove(0));
-
+                            Me.getInstance().updatePlaylistAdapter();
+                        }else{
+                            User.getInstance().setSource(User.NONE);
+                            dao.createRadio(User.getInstance().getName(), null);
                         }
                     }
                 });
@@ -189,6 +196,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 player.setOnCompletionListener(null);
             }
             User.getInstance().setCurrent(s);
+            User.getInstance().setPlaying(true);
         } catch (Exception e) {
         }
     }
@@ -196,6 +204,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public void muteMusic(){
         try {
             player.pause();
+            User.getInstance().setPlaying(false);
         } catch (Exception e) {
         }
     }
@@ -204,6 +213,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public void unmuteSong(){
         try {
             player.start();
+            User.getInstance().setPlaying(true);
         } catch (Exception e) {
         }
     }
@@ -212,6 +222,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         try {
             User.getInstance().setCurrent(r.getSong());
             User.getInstance().setRadio(r);
+            User.getInstance().setSource(User.RADIO);
             player.reset();
             player.setDataSource(r.getSong().getUrl());
             player.prepare();
