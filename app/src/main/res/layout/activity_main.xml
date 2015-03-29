@@ -94,7 +94,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:src="@drawable/me"
+            android:src="@drawable/broadcast"
             android:scaleType="fitCenter"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
