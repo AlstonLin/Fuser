@@ -51,6 +51,7 @@ public class DAO {
             conn.close();
         }catch(Exception e)
         {
+
             Log.w("Error Connecton", "" + e.getMessage());
         }
 
