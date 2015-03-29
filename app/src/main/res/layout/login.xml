@@ -3,4 +3,83 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:src="@drawable/logo"
+        android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="24sp"
+            android:text="Username" />
+
+        <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="24sp"
+            android:text="Password" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:layout_gravity="right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="#b4e0e1"
+        android:layout_weight="3">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Log In"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:background="#224687"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:id="@+id/login"
+            android:onClick="login"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Sign Up"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:background="#2abfd4"
+            android:id="@+id/signup"
+            android:onClick="signup"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2" />
+    </LinearLayout>
 </LinearLayout>

@@ -94,6 +94,7 @@ public class Results extends Fragment {
                             }
                             b.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                             ((MainActivity) getActivity()).playSong(s);
+                            User.getInstance().setPlayPlaylist(false);
                             User.getInstance().setMute(false);
                         }
                         last = b;

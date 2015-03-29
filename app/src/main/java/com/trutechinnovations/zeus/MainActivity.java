@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,6 +27,47 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        setContentView(R.layout.login);
+        EditText myEditText = (EditText) findViewById(R.id.username);
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
+        */
+        openHome();
+    }
+
+    public void login(View v){
+       String user = String.valueOf(((EditText)findViewById(R.id.username)).getText());
+       String pass = String.valueOf(((EditText)findViewById(R.id.password)).getText());
+       DAO dao = new DAO();
+       if (dao.login(user, pass)){
+           User.getInstance().setName(user);
+           openHome();
+       }else{
+           Toast.makeText(this, "Invalid Login", Toast.LENGTH_LONG).show();
+       }
+    }
+
+    public void signup(View v){
+        setContentView(R.layout.sign_up);
+    }
+
+
+    public void register(View v){
+        DAO dao = new DAO();
+        String user = String.valueOf(((EditText)findViewById(R.id.user)).getText());
+        String pass = String.valueOf(((EditText)findViewById(R.id.pass)).getText());
+        boolean success = dao.createUser(user, pass);
+        if (success) {
+            Toast.makeText(this, "Registered!", Toast.LENGTH_LONG).show();
+            setContentView(R.layout.login);
+        } else{
+            Toast.makeText(this, "Error Registering", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public void openHome(){
         setContentView(R.layout.activity_main);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -33,11 +75,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(4);
         mPager.setOnPageChangeListener(this);
-        EditText myEditText = (EditText) findViewById(R.id.search);
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
     }
-
 
     public void clickDiscover(View v){
         mPager.setCurrentItem(DISCOVER);
@@ -118,6 +156,18 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             player.setDataSource(s.getUrl());
             player.prepare();
             player.start();
+            if (User.getInstance().isPlayPlaylist()){
+                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (User.getInstance().getPlaylist().size() > 0){
+                            playSong(User.getInstance().getPlaylist().remove(0));
+                        }
+                    }
+                });
+            }else{
+                player.setOnCompletionListener(null);
+            }
             User.getInstance().setCurrent(s);
         } catch (Exception e) {
         }
@@ -147,6 +197,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             player.prepare();
             player.start();
             player.seekTo(r.getSong().getTime());
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+
+                }
+            });
         } catch (Exception e) {
         }
     }

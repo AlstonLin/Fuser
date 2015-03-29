@@ -42,13 +42,46 @@ public class Me extends Fragment {
         followers.setText("FOLLWERS " + iFollowers.size());
 
         Button b = (Button) rootView.findViewById(R.id.playlist);
+        Button c = (Button) rootView.findViewById(R.id.play);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickPlaylist();
             }
         });
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPlaylist();
+            }
+        });
         return rootView;
+    }
+
+
+    public void playPlaylist() {
+        if (User.getInstance().isMute()){
+            if (User.getInstance().getPlaylist().size() > 0) {
+                Song s = User.getInstance().getPlaylist().remove(0);
+                ((MainActivity) getActivity()).playSong(s);
+                User.getInstance().setMute(false);
+                ((Button)getView().findViewById(R.id.play)).setText("Play");
+            }
+        }else {
+            if (User.getInstance().isPlayPlaylist()){
+                User.getInstance().setMute(true);
+                ((Button)getView().findViewById(R.id.play)).setText("Pause");
+            }else {
+                if (User.getInstance().getPlaylist().size() > 0) {
+                    User.getInstance().setPlayPlaylist(true);
+                    Song s = User.getInstance().getPlaylist().remove(0);
+                    ((MainActivity) getActivity()).playSong(s);
+                    ((ImageButton)getView().findViewById(R.id.play)).setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play_white));
+                    ((Button)getView().findViewById(R.id.play)).setText("Play");
+                }
+            }
+        }
+
     }
 
     /**
@@ -74,7 +107,7 @@ public class Me extends Fragment {
             if (v == null) {
                 LayoutInflater vi;
                 vi = LayoutInflater.from(getContext());
-                v = vi.inflate(R.layout.item, null);
+                v = vi.inflate(R.layout.playlist_remove, null);
             }
 
             if (s != null) {
@@ -88,6 +121,7 @@ public class Me extends Fragment {
                     @Override
                     public void onClick(View v) {
                         User.getInstance().getPlaylist().remove(s);
+                        notifyDataSetChanged();
                     }
                 });
                 title.setText(s.getName());
@@ -98,6 +132,12 @@ public class Me extends Fragment {
         }
     }
 
+
+    public void finish(){
+        playlistSelect.dismiss();
+        ListView list = (ListView) getView().findViewById(R.id.list);
+        ((ListAdapter)list.getAdapter()).notifyDataSetChanged();
+    }
 
     public void clickPlaylist(){
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -110,6 +150,14 @@ public class Me extends Fragment {
         });
         playlistSelect = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         playlistSelect.showAtLocation(getActivity().findViewById(R.id.frame), Gravity.CENTER, 0, 0);
+
+        Button finish = (Button) layout.findViewById(R.id.done);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void searchPlaylist(){
