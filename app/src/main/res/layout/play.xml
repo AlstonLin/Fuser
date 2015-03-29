@@ -70,6 +70,7 @@
             android:background="#20aec2"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="bottom"
+            />
     </LinearLayout>
 </LinearLayout>
