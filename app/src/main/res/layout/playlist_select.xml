@@ -11,19 +11,19 @@
         android:layout_weight="12">
 
         <EditText
-            android:textSize="30sp"
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:id="@+id/playlistText"
+            android:hint="Search"
+            android:paddingLeft="25dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:maxLines="1"
             android:background="@drawable/textbox"
-            android:ems="10"
-            android:paddingRight="2dp"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"/>
+            android:ems="10"/>
 
         <ImageButton
             android:layout_width="0dp"
