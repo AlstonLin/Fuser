@@ -120,13 +120,17 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         switch (position){
             case DISCOVER:
                 last = (ImageButton) findViewById(R.id.discover);
+                break;
             case PLAY:
-                last = (ImageButton) findViewById(R.id.play);
                 Play.getInstance().update();
+                last = (ImageButton) findViewById(R.id.play_button);
+                break;
             case ME:
                 last = (ImageButton) findViewById(R.id.me);
+                break;
             case RESULTS:
                 last = (ImageButton) findViewById(R.id.results);
+                break;
         }
         last.setBackgroundColor(Color.parseColor("#E0E0E0"));
     }

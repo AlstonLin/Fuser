@@ -80,7 +80,7 @@
             android:paddingBottom="5dp"
             android:background="#FFFFFF"
             android:onClick="clickPlay"
-            android:id="@+id/play" />
+            android:id="@+id/play_button" />
 
         <ImageButton
             android:layout_width="0dp"
